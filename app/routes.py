@@ -10,10 +10,7 @@ from flask_login import login_required, current_user
 def home_page():
     return render_template('index.html')
 
-# @app.route('/')
-# def home_page():
-#     return render_template('index.html')
+#Make a search function that finds nba players to add onto draft team
+#and saves to db
 
-# @app.route('/')
-# def home_page():
-#     return render_template('index.html')
+#STATS route for players and (teams)
