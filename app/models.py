@@ -10,6 +10,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(45), nullable = False, unique = True)
     email = db.Column(db.String(100), nullable = False, unique = True)
     password = db.Column(db.String, nullable = False)
+    #When making the draft teams add more Columns 
+    #Top five all Time 
+    #Starting five all Time
+    #Top five positions
 
     def saveToDB(self):
          db.session.add(self)
@@ -57,6 +61,9 @@ class Player(db.model):
         self.ppg = player_stats['PPG']
         self.apg = player_stats['APG']
         self.rpg = player_stats['RPG']
+
+def known_player(name):
+     return Player.query.filter_by(player = name).first()
 
 
          

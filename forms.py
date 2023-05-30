@@ -4,7 +4,8 @@ from flask_wtf import FlaskForm
 
 
 class player_search(FlaskForm):
-    pass
+    player_search = StringField('Who In Yo Dream Team Dawg!: ', validators=[DataRequired()])
+    submit = SubmitField('Search')
     
     
 
