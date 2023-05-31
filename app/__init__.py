@@ -3,7 +3,7 @@ from config import Config
 from flask_login import LoginManager
 from .models import db, User
 from flask_migrate import Migrate
-from .auth.routes import auth
+from .auth.auth_routes import auth
 
 
 app = Flask(__name__)

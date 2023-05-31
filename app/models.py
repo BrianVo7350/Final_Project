@@ -1,7 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 from flask_login import UserMixin
-
 
 db = SQLAlchemy()
 
@@ -11,6 +9,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), nullable = False, unique = True)
     password = db.Column(db.String, nullable = False)
     #When making the draft teams add more Columns 
+    #DREAM TEAM
     #Top five all Time 
     #Starting five all Time
     #Top five positions
@@ -24,7 +23,7 @@ class User(db.Model, UserMixin):
          db.session.commit()
 
 
-class Player(db.model):
+class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40))
     image = db.Column(db.String(100), nullable = False)

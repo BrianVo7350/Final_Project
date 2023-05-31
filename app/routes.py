@@ -2,7 +2,7 @@ from flask import render_template, request, flash, redirect, url_for
 from app import app
 from forms import player_search
 import requests
-from .models import User, Player, db, Player_stats
+from .models import User, Player, db
 from flask_login import login_required, current_user
 #The imports don't work because you need to FLASK DB INIT
 
@@ -10,6 +10,13 @@ from flask_login import login_required, current_user
 @app.route('/')
 def home_page():
     return render_template('index.html')
+
+
+@app.route('/DreamTeam')
+@login_required
+def Dreamteam():
+     pass
+
 
 @app.route('/search', methods=["GET", "POST"])
 @login_required
@@ -48,15 +55,15 @@ def search():
 #Add players to your DREAM TEAM
 #Show Users to see all other users and display on home page
 
-@app.route('/add/<id>')
-@login_required
-def add_player(id):
-     pass
+# @app.route('/add/<id>')
+# @login_required
+# def add_player(id):
+#      pass
      
-@app.route('/showusers')
-@login_required
-def users():
-     pass
+# @app.route('/showusers')
+# @login_required
+# def users():
+#      pass
      
 
 
