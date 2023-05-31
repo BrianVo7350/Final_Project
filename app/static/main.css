@@ -1,0 +1,11 @@
+.Navbar {
+    font-size: 25px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+/* REMEMBER THIS IS FOR ALL LINKS CHANGE IF YOU HAVE ANOTHER LI IN HTML */
+li {
+    display: inline;
+}

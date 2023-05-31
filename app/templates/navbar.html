@@ -1,38 +1,37 @@
-<style>
-    ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-    
-    li {
-      display: inline;
-    }
-    </style>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:5000/">Home</a>
+                </li>
 
+                {% if current_user.is_authenticated %}
 
-<div>
-    <ul>
-        <li>
-            <a href="#">Home Page</a>
-        </li>
-        <li>
-            <a href="#">Players</a>
-        </li>
-        <li>
-            <a href="#">Stats</a>
-        </li>
-        <li>
-            <a href="#">News</a>
-        </li>
-        <li>
-            <a href="#">Starting 5 All Time</a>
-        </li>
-        <li>
-            <a href="/login">LOGIN</a>
-        </li>
-        <li>
-            <a href="/signup">SIGNUP</a>
-        </li>
-    </ul>
-</div>
+                    <li class="nav-item">
+                        <p class="nav-link">Welome {{ current_user.username }}!</p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Log Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:5000/search">Players</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:5000/dreamteam">Dream Team</a>
+                      </li>
+                {% else %}
+                    <li class="nav-item">
+                        <p class="nav-link">Make An Account Baller</p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:5000/login">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:5000/signup">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

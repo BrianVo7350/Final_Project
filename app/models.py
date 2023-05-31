@@ -13,6 +13,11 @@ class User(db.Model, UserMixin):
     #Top five all Time 
     #Starting five all Time
     #Top five positions
+    
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
 
     def saveToDB(self):
          db.session.add(self)

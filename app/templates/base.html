@@ -9,15 +9,31 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 
-<title>NBA Project</title>
+<title>Pokemon application</title>
 
 </head>
-{% include 'navbar.html' %}
+    {% include 'navbar.html' %}
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+      {% endwith %}
 
-<body>
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
