@@ -15,7 +15,7 @@ headers = {
 	"X-RapidAPI-Key": "ff9aebdf16msh7d7fbeee140d529p11077djsn245b75903513",
 	"X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
 }
-querystring =  {"id":"1"}
+#THIS IS JUST FOR THE IMAGE AND NAME FOR DREAM TEAM
 
 @app.route('/dreamteam', methods=["GET", "POST"])
 @login_required
@@ -24,74 +24,131 @@ def dreamteam():
     if request.method == "POST":
         player = form.player.data
         #THIS URL IS WRONG CHECK API AGAIN
-        url = f"https://api-nba-v1.p.rapidapi.com/players/{player}/"
-        response = requests.get(url, headers=headers, params=querystring)
+        url = 'https://stats.nba.com/stats/playoffpicture'
+        response = requests.get(url)
         if not response.ok:
             return 'That Player Is Not In The NBA'
         
         data = response.json()
         for Player in data:
             dream_player = {
-                "image": data["image"]}
+                "image": data["resultSets"]["EastConfPlayoffPicture"]}
             if not Player.known_player(["name"]):
                  player = Player()
                  player.from_dict(dream_player)
                  player.saveToDB()
+
         return render_template('dreamteam.html', form = form, player = dream_player)
     return render_template('dreamteam.html', form = form)
      
-            
-                    
-          
 
 @app.route('/search', methods=["GET", "POST"])
 @login_required
 def search():
     form = player_search()
     if request.method == "POST":
-        player_name = form.player_name.data
-         #THIS URL IS WRONG CHECK API AGAIN
-        url = f'https://nba-stats4.p.rapidapi.com/players/%7Bid%7D{player_name}/'
-        response = requests.get(url)
+        player_name = form.player_search.data
+        player = Player.query.filter_by(name = player_name).first()
+        url = f"https://api-nba-v1.p.rapidapi.com/players/statistics"
+        querystring = {"id": player.id, "season": "2022"}
+        response = requests.get(url, headers=headers, params=querystring)
+
         if not response.ok:
                 #RETURN OR FLASH MESSAGE
                 return 'That Guy Is Not In The NBA Dawg'
-        
+
         data = response.json()
-        for Player in data:
-            Player_stats = {
-                 "id":data["id"],
-                 "name": data["name"],
-                 "image": data["Image"],
-                 "team": data["team"],
-                 "height": data["height"],
-                 "weight": data["weight"],
-                 "age": data["age"],
-                 "country": data["country"],
-                 "ppg": data["PPG"],
-                 "apg": data["APG"],
-                 "rpg": data["RPG"]}
-            if not Player.known_player(Player_stats["name"]):
-                 player = Player()
-                 player.from_dict(Player_stats)
-                 player.saveToDB()
-        return render_template('search.html', form = form, player = Player_stats)
+        #points assists total rebounds
+        res = response.json()
+        data = res['response']
+        print(res)
+        points = 0
+        assists = 0
+        rebounds = 0
+        for stats in data:
+            points += stats.get("points")
+            assists += stats.get("assists")
+            rebounds += stats.get("totReb")
+        if len(data):
+            points /= len(data)
+            assists /= len(data)
+            rebounds /= len(data)
+            
+
+        player_stats = player.to_dict()
+        player_stats['points'] = points
+        player_stats['assists'] = assists
+        player_stats['rebounds'] = rebounds
+        # player_stats['team'] = team
+           
+        return render_template('search.html', form = form, player = player_stats)
     return render_template('search.html', form = form)
      
 
+@app.route('/drafts')
+@login_required
+def show_drafts():
+    users = User.query.filter(User.id != current_user.id, User.drafts).all()
+    return render_template('drafts.html', users = users)
+
+#MAYBE LOTS OF MISPELLED STUFF HERE
+
+@app.route('/mydraft')
+@login_required
+def my_draft():
+    return render_template('mydraft.html', team = current_user.draft.all(), user = current_user)
 
 
-# @app.route('/showusers')
+@app.route('/getplayer/<id>')
+@login_required
+def get_player():
+    pass
+# @app.route('/catch/<id>')
 # @login_required
-# def users():
-#      pass
+# def catch_pokemon(id):
+#     pokemon = Pokemon.query.filter_by(id = id).first()
+#     if pokemon in current_user.pokemon:
+#         flash('Pokemon already in team!', 'warning')
+#         return redirect(url_for('poke_search'))
+#     elif current_user.pokemon.count() == 6:
+#         flash('Team is full please remove a pokemon to add another!', 'warning')
+#         return render_template('team.html', pokemon = pokemon, user = current_user)
+#     else:
+#         flash('Added to your team!', 'success')
+#         current_user.pokemon.append(pokemon)
+#         db.session.commit()
+#         return render_template('team.html', pokemon = pokemon, user = current_user)
 
+@app.route('/test')
+def addplayers():
 
+    url = "https://api-nba-v1.p.rapidapi.com/players"
 
+    querystring = {"country" : "USA"}
 
-#Make a search function that finds players that shows just image and team and adds onto
-#DRAFT TEAM
-#Make a similar search function that shows just the stats for the player information
+    headers = {
+        "X-RapidAPI-Key": "ff9aebdf16msh7d7fbeee140d529p11077djsn245b75903513",
+        "X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
+    }
 
-#Make a route that shows the other users draft teams and display on home page
-#STATS route for players and (teams)
+    response = requests.get(url, headers=headers, params=querystring)
+
+    data = (response.json())['response']
+
+    for player in data:
+        player_dict = {
+            "name": player["firstname"] + ' ' + player["lastname"],
+            "id" : player["id"],
+            "birthdate" : player["birth"]["date"],
+            "country": player["birth"]["country"],
+            "position": player["pos"],
+            "height": f"{player['height']['feets']} ' {player['height']['inches']}  \" ",
+            "weight": player["weight"]["pounds"],
+            "jersey": player["leagues"].get("standard",{}).get("jersey",-1)
+        }
+        p = Player()
+        p.from_dict(player_dict)
+
+        p.saveToDB()
+
+    p.commitToDB()

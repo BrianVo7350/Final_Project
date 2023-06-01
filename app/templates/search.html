@@ -1,6 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content%}
-SEARCH FOR PLAYERS STATS
+<h1>Search For Any Players Stats And Information</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    {{ form.player_search(class='form-control', placeholder="Name")}}
+    {{ form.submit(class='btn btn-danger') }}
+</form>
+
+{% if player %}
+<div class="card">
+    <div class="container">
+    <img src="{{player.image}}" width="250" height="250">
+    <h3>Name : {{player.name}}</h3>
+    <p>Birthdate: {{player.birthdate}}</p>
+    <p>Country: {{player.country}}</p>
+    <p>Height: {{player.height}}</p>
+    <p>Weight: {{player.weight}}</p>
+    <p>Jersey #: {{player.jersey}}</p>
+    <p>PPG: {{player.points}}</p>
+    <p>APG: {{player.assists}}</p>
+    <p>APG: {{player.rebounds}}</p>
+    </div>
+</div>
+
+{% else %}
+
+{% endif %}
 
 {% endblock %}
