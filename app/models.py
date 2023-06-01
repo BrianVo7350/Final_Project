@@ -15,16 +15,10 @@ draft = db.Table('draft',
      db.Column('user_id', db.Integer, db.ForeignKey('user.id'), nullable = False),
      db.Column('player_id', db.Integer, db.ForeignKey('player.id'), nullable = False))
 
-    #When making the draft teams add more Columns 
-    #DREAM TEAM
-    #Top five all Time 
-    #Starting five all Time
-    #Top five positions
-
 def __init__(self, username, email, password):
-        self.username = username
-        self.email = email
-        self.password = password
+     self.username = username
+     self.email = email
+     self.password = password
 
 def saveToDB(self):
      db.session.add(self)
@@ -81,7 +75,7 @@ class Player(db.Model):
           return {
                "id": self.id,
                "name": self.name,
-               "team": self.team,
+               # "team": self.team,
                "height": self.height,
                "weight": self.weight,
                "birthdate": self.birthdate,

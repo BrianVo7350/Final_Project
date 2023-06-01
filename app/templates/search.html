@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content%}
-<h1>Search For Any Players Stats And Information</h1>
+
+<h1 class="search1">Search For Any Players Stats And Information</h1>
 <form method="POST">
     {{ form.hidden_tag() }}
 
@@ -24,6 +25,7 @@
     <p>APG: {{player.rebounds}}</p>
     </div>
 </div>
+<a href="{{url_for('get_player', id=player.id)}}" class="btn btn-danger">Recruit?</a>
 
 {% else %}
 

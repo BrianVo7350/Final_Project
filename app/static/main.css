@@ -1,11 +1,50 @@
-.Navbar {
-    font-size: 25px;
-    list-style-type: none;
+@font-face {
+    font-family: nbafont;
+    src: url(NBACeltics.ttf);
+}
+
+*{
+    font-family: nbafont;
+}
+
+.navbar {
+    font-size: 30px;
     margin: 0;
     padding: 0;
-    text-decoration: none;
+    background-color: black;
+    
 }
-/* REMEMBER THIS IS FOR ALL LINKS CHANGE IF YOU HAVE ANOTHER LI IN HTML */
-li {
-    display: inline;
+
+.nav-link {
+    color:white;
+    margin-left:20px;
+    
 }
+
+.search1 {
+    margin-top:40px;
+}
+
+.form-control {
+    width:50%;
+}
+
+
+.drafth{
+    margin-top:50px;
+    text-align:center;
+}
+
+.card-body{
+    margin-top:20px;
+}
+
+.card{
+    width:25%;
+    text-align:center;
+    border-radius: 10px;
+    border-color: black;
+    border-width: 3px;
+}
+
+

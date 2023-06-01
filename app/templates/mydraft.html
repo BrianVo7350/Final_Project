@@ -1,8 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!-- 
+{% if user == current_user %}
+{% for player in draft %}
+<div class="card">
+    <img src=""  style="width:100%">
+    <div class="container">
+      <h4><b>{{[player.name]}}</b></h4>
+      <p>TEAM AND POS</p>
+    </div>
+  </div>
 
-SHOWS JUST THE USERS DRAFTS
 
+{% endfor %}
+{% endif %}
+SHOWS JUST THE USERS DRAFTS -->
+
+    {% if team %}
+{%for player in draft %}
+            <div class="card">
+                <p class="card-title">{{player.name}}</p>
+                <div class="container">
+                    <img src="{{player.image}}" width="100" height="100">   
+                </div>
+            </div>
+
+
+
+
+{% endfor %} 
+
+{% endif %}
 
 {% endblock %}

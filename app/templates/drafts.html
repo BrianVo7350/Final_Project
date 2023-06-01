@@ -2,7 +2,21 @@
 
 {% block content %}
 
-SHOWS ALL THE DRAFTS OF THE USERS
+<h1 class="drafth">All Dream Team Drafts</h1>
+{% for user in users %}
+<div class="card" >
+    <div class="row">
+        <div class="col">
+        <div class="card-body">
+            <h4 class="card-title">{{user.username}}</h4>
 
+            <!-- CHANGE THE URL_FOR AND MAKE THE OTHER TEAM? -->
+          <a href="{{url_for('diffuser', id=user.id)}}" class="btn btn-danger">VIEW DRAFT</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
 
 {% endblock %}
