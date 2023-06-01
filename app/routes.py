@@ -11,13 +11,6 @@ from flask_login import login_required, current_user
 def home_page():
     return render_template('index.html')
 
-
-headers = {
-	"X-RapidAPI-Key": "ff9aebdf16msh7d7fbeee140d529p11077djsn245b75903513",
-	"X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
-}
-#THIS IS JUST FOR THE IMAGE AND NAME FOR DREAM TEAM
-
 # @app.route('/dreamteam', methods=["GET", "POST"])
 # @login_required
 # def dreamteam():
@@ -42,7 +35,10 @@ headers = {
 #         return render_template('dreamteam.html', form = form, player = dream_player)
 #     return render_template('dreamteam.html', form = form)
      
-
+headers = {
+	"X-RapidAPI-Key": "ff9aebdf16msh7d7fbeee140d529p11077djsn245b75903513",
+	"X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
+}
 @app.route('/search', methods=["GET", "POST"])
 @login_required
 def search():
@@ -56,7 +52,7 @@ def search():
 
         if not response.ok:
                 #RETURN OR FLASH MESSAGE
-                return 'That Guy Is Not In The NBA Dawg'
+                flash('That Guy Is Not In The NBA Dawg')
 
         data = response.json()
         #points assists total rebounds
@@ -91,18 +87,10 @@ def show_drafts():
     users = User.query.filter(User.id != current_user.id, User.player).all()
     return render_template('drafts.html', users = users)
 
-# @app.route('/opteam/<id>')
-# @login_required
-# def opteam(id):
-#     user = User.query.filter_by(id = id).first()
-#     return render_template('team.html', team = user.pokemon.all(), user = user)
-#MAYBE LOTS OF MISPELLED STUFF HERE
-
-#THIS SHOWS MY DRAFT CURRENT USER
 @app.route('/mydraft')
 @login_required
 def my_draft():
-    return render_template('mydraft.html', mydraft = current_user.player.all(), user = current_user, player = Player)
+    return render_template('mydraft.html', draft = current_user.player.all(), user = current_user)
 
 @app.route('/diffuser/<id>')
 @login_required
@@ -149,7 +137,7 @@ def addplayers():
             "id" : player["id"],
             "birthdate" : player["birth"]["date"],
             "country": player["birth"]["country"],
-            "position": player["leagues"]["standard",{}]["pos"],
+            "position": player["leagues"].get("standard",{}).get("pos"),
             "height": f"{player['height']['feets']} ' {player['height']['inches']}  \" ",
             "weight": player["weight"]["pounds"],
             "jersey": player["leagues"].get("standard",{}).get("jersey")
@@ -160,3 +148,26 @@ def addplayers():
         p.saveToDB()
 
     p.commitToDB()
+
+# @app.route('/image')
+# def player_image():
+
+#     url = "https://stats.nba.com/stats/playoffpicture"
+
+#     response = requests.get(url)
+#     data = response.json()
+
+#     for player in data:
+#         player_image = {
+#             "image": player["resultSets"]["name"]
+#         }
+#         p = Player()
+#         p.from_dict(player_image)
+
+#         p.saveToDB()
+#     p.commitToDB()
+
+
+    
+
+

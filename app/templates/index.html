@@ -1,16 +1,10 @@
 {% extends 'base.html' %}
-
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
+{% endblock %}
 
 {% block content%}
-<style>
-    body{
-        background-image: url("download.jpg");
-    }
-</style>
-<img src="download.jpg" width="250" height="250">
-NBA HOME PAGE
 
-BACKGROUND IMAGE
 
 
 

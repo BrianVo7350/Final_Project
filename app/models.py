@@ -3,37 +3,37 @@ from flask_login import UserMixin
 
 db = SQLAlchemy()
 
-class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(45), nullable = False, unique = True)
-    email = db.Column(db.String(100), nullable = False, unique = True)
-    password = db.Column(db.String, nullable = False)
-    player = db.relationship('Player', secondary = 'draft', lazy = 'dynamic')
-
 
 draft = db.Table('draft',
      db.Column('user_id', db.Integer, db.ForeignKey('user.id'), nullable = False),
      db.Column('player_id', db.Integer, db.ForeignKey('player.id'), nullable = False))
 
-def __init__(self, username, email, password):
-     self.username = username
-     self.email = email
-     self.password = password
+class User(db.Model, UserMixin):
+     id = db.Column(db.Integer, primary_key=True)
+     username = db.Column(db.String(45), nullable = False, unique = True)
+     email = db.Column(db.String(100), nullable = False, unique = True)
+     password = db.Column(db.String, nullable = False)
+     player = db.relationship('Player', secondary = 'draft', lazy = 'dynamic')
 
-def saveToDB(self):
-     db.session.add(self)
-     db.session.commit()
-
-def deleteFromDB(self):
-     db.session.delete(self)
-     db.session.commit()
+     def __init__(self, username, email, password):
+          self.username = username
+          self.email = email
+          self.password = password
+          
+     def saveToDB(self):
+          db.session.add(self)
+          db.session.commit()
+          
+     def deleteFromDB(self):
+          db.session.delete(self)
+          db.session.commit()
 
 
 class Player(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      name = db.Column(db.String(40))
      image = db.Column(db.String(100), nullable = True)
-     # team = db.Column(db.String(50))
+     team = db.Column(db.String(50))
      position = db.Column(db.String(2))
      height = db.Column(db.String(20))
      weight = db.Column(db.Integer)
@@ -61,7 +61,8 @@ class Player(db.Model):
      def from_dict(self, player_stats):
           self.id = player_stats['id'] 
           self.name = player_stats['name']
-          # self.team = player_stats['team']
+          self.team = player_stats['team']
+          self.position = player_stats['position']
           self.height = player_stats['height']
           self.weight = player_stats['weight']
           self.birthdate = player_stats['birthdate']
@@ -75,13 +76,14 @@ class Player(db.Model):
           return {
                "id": self.id,
                "name": self.name,
-               # "team": self.team,
+               "team": self.team,
+               "position": self.position,
                "height": self.height,
                "weight": self.weight,
                "birthdate": self.birthdate,
                "country": self.country,
                "jersery": self.jersey,
-               "image": self.image
+               # "image": self.image
           }
 
 def known_player(name):

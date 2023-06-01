@@ -1,0 +1,14 @@
+body {
+    background-image: url(/static/images/103114.jpg);
+}
+
+.form-control{
+    border-radius: 20px;
+    border-color: black;
+    border-width: 2px;
+}
+
+#btn{
+    border-radius: 20px;
+    
+}

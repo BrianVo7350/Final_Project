@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
-
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/drafts.css')}}">
+{% endblock %}
 {% block content %}
+
 
 <h1 class="drafth">All Dream Team Drafts</h1>
 {% for user in users %}
@@ -10,7 +13,6 @@
         <div class="card-body" id="card-body1">
             <h4 class="card-title">{{user.username}}</h4>
 
-            <!-- CHANGE THE URL_FOR AND MAKE THE OTHER TEAM? -->
           <a href="{{url_for('diffuser', id=user.id)}}" class="btn btn-danger">VIEW DRAFT</a>
         </div>
         </div>

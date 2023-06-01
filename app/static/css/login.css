@@ -1,0 +1,14 @@
+body {
+    background-image: url(/static/images/Kobe.png);
+}
+
+.form-control{
+    border-radius: 20px;
+    border-color: black;
+    border-width: 2px;
+}
+
+#btn{
+    border-radius: 20px;
+    
+}

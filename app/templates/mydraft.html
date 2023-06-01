@@ -1,26 +1,23 @@
 {% extends 'base.html' %}
-
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/mydraft.css')}}">
+{% endblock %}
 {% block content %}
 
 {% for player in draft %}
-<div class="card">
-  <img src="lebron.jpg">
-  <div class="container">
-    <h4>{{player.name}}</h4> 
-    <p>Architect & Engineer</p> 
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <!-- <img src="{{player.image}}"> -->
+        <h4>{{player.name}}</h4> 
+        <p>{{player.country}}</p> 
+    </div>
   </div>
 </div>
-<!-- <div>
-    <img src="" width="250" height="250">
-    <div>
-      <h4></h4>
-      <p>TEAM AND POS</p>
-    </div>
-  </div> -->
-
 
 
 {% endfor %}
+
 
 
 {% endblock %}

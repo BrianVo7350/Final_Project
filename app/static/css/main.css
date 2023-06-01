@@ -5,21 +5,19 @@
 
 *{
     font-family: nbafont;
-    background-image: url('Lebron.jpg');
+    color:black;
 }
 
 .navbar {
     font-size: 30px;
     margin: 0;
     padding: 0;
-    background-color: black;
-    
+    background-color: black;    
 }
 
 .nav-link {
     color:white;
     margin-left:20px;
-    
 }
 
 .search1 {
@@ -94,3 +92,12 @@
 #signupconfirm{
     width:20%;
 }
+
+.column{
+    float:left;
+
+}
+/* 
+.row{
+    
+} */
