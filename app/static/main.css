@@ -5,6 +5,7 @@
 
 *{
     font-family: nbafont;
+    background-image: url('Lebron.jpg');
 }
 
 .navbar {
@@ -23,23 +24,19 @@
 
 .search1 {
     margin-top:40px;
+    text-align:center;
 }
-
-.form-control {
-    width:50%;
-}
-
 
 .drafth{
     margin-top:50px;
     text-align:center;
 }
 
-.card-body{
+#card-body1{
     margin-top:20px;
 }
 
-.card{
+#card1{
     width:25%;
     text-align:center;
     border-radius: 10px;
@@ -47,4 +44,53 @@
     border-width: 3px;
 }
 
+#searchform {
+    width:25%;
+    text-align:center;
+    margin-left:460px;
+    margin-bottom:10px;
 
+}
+
+#searchbutton{
+    text-align:center;
+    margin-left:590px;
+}
+
+#loginform {
+    width:20%;
+}
+
+#loginform2{
+    width:20%;
+
+}
+
+#loginh{
+    margin-top:50px;
+}
+
+#btn{
+    border-radius: 5px;
+    border-color:black;
+}
+
+#signuph{
+    margin-top:50px;
+}
+
+#signupuser{
+    width:20%;
+}
+
+#signupemail{
+    width:20%;
+}
+
+#signuppassword{
+    width:20%;
+}
+
+#signupconfirm{
+    width:20%;
+}

@@ -2,12 +2,12 @@
 
 {% block content%}
 
-<h1 class="search1">Search For Any Players Stats And Information</h1>
+<h1 class="search1">Search For Player Stats And Information</h1>
 <form method="POST">
     {{ form.hidden_tag() }}
 
-    {{ form.player_search(class='form-control', placeholder="Name")}}
-    {{ form.submit(class='btn btn-danger') }}
+    {{ form.player_search(class='form-control', id="searchform" , placeholder="Name")}}
+    {{ form.submit(class='btn btn-danger', id="searchbutton") }}
 </form>
 
 {% if player %}
@@ -17,6 +17,7 @@
     <h3>Name : {{player.name}}</h3>
     <p>Birthdate: {{player.birthdate}}</p>
     <p>Country: {{player.country}}</p>
+    <p>Team: {{player.team}}</p>
     <p>Height: {{player.height}}</p>
     <p>Weight: {{player.weight}}</p>
     <p>Jersey #: {{player.jersey}}</p>

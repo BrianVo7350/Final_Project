@@ -80,7 +80,6 @@ def search():
         player_stats['points'] = points
         player_stats['assists'] = assists
         player_stats['rebounds'] = rebounds
-        # player_stats['team'] = team
            
         return render_template('search.html', form = form, player = player_stats)
     return render_template('search.html', form = form)
@@ -103,7 +102,7 @@ def show_drafts():
 @app.route('/mydraft')
 @login_required
 def my_draft():
-    return render_template('mydraft.html', mydraft = current_user.player.all(), user = current_user)
+    return render_template('mydraft.html', mydraft = current_user.player.all(), user = current_user, player = Player)
 
 @app.route('/diffuser/<id>')
 @login_required
@@ -150,10 +149,10 @@ def addplayers():
             "id" : player["id"],
             "birthdate" : player["birth"]["date"],
             "country": player["birth"]["country"],
-            "position": player["pos"],
+            "position": player["leagues"]["standard",{}]["pos"],
             "height": f"{player['height']['feets']} ' {player['height']['inches']}  \" ",
             "weight": player["weight"]["pounds"],
-            "jersey": player["leagues"].get("standard",{}).get("jersey",-1)
+            "jersey": player["leagues"].get("standard",{}).get("jersey")
         }
         p = Player()
         p.from_dict(player_dict)
